@@ -127,25 +127,43 @@ export const getAllUsers = async (req, res) => {
 
 export const update = async (req, res) => {
 	try {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).json(errors.array());
+		}
+
 		const userId = req.params.id;
 
-		const passwordNaked = req.body.password;
-		const salt = await bcrypt.genSalt(10);
-		const passwordHash = await bcrypt.hash(passwordNaked, salt);
+		const updates = {};
 
-		await UserModel.updateOne(
-			{
-				_id: userId,
-			},
-			{
-				email: req.body.email,
-				username: req.body.username,
-				password: passwordHash,
-			}
-		);
+		if (req.body.email) {
+			updates.email = req.body.email;
+		}
+
+		if (req.body.username) {
+			updates.username = req.body.username;
+		}
+
+		if (req.body.password) {
+			const salt = await bcrypt.genSalt(10);
+			const passwordHash = await bcrypt.hash(req.body.password, salt);
+			updates.password = passwordHash;
+		}
+
+		const updatedUser = await UserModel.findByIdAndUpdate(userId, updates, {
+			new: true,
+		});
+
+		if (!updatedUser) {
+			return res.status(404).json({
+				message: 'Пользователь не найден',
+			});
+		}
+
+		const { password, ...userData } = updatedUser._doc;
 
 		res.json({
-			success: true,
+			...userData,
 		});
 	} catch (error) {
 		console.log(error);

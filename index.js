@@ -1,11 +1,11 @@
-import cors from 'cors';
-import express from 'express';
-import mongoose from 'mongoose';
-import checkAuth from './utils/checkAuth.js';
-import { loginValidation, registerValidation } from './validation.js';
+import cors from 'cors'
+import express from 'express'
+import mongoose from 'mongoose'
+import checkAuth from './utils/checkAuth.js'
+import { loginValidation, registerValidation, updateValidation } from './validation.js'
 
-import * as TrainerController from './controllers/TrainerController.js';
-import * as UserController from './controllers/UserController.js';
+import * as TrainerController from './controllers/TrainerController.js'
+import * as UserController from './controllers/UserController.js'
 
 mongoose
 	.connect(
@@ -23,7 +23,7 @@ app.post('/auth/login', loginValidation, UserController.login);
 app.post('/auth/register', registerValidation, UserController.register);
 app.get('/auth/me', checkAuth, UserController.getMe);
 app.get('/auth/register', UserController.getAllUsers);
-app.patch('/auth/:id', checkAuth, registerValidation, UserController.update);
+app.patch('/auth/:id', updateValidation, checkAuth, UserController.update);
 
 app.post('/trainers', checkAuth, TrainerController.create);
 app.get('/trainers', TrainerController.getAllTrainers);
