@@ -16,7 +16,7 @@ console.log(ip);
 
 
 mongoose
-	.connect(process.env.MONGODB_URL || 'mongodb+srv://eugene-isaikin:rrfxxb2023@swifttype.gir6c4x.mongodb.net/swift-type?retryWrites=true&w=majority')
+	.connect(process.env.MONGODB_URL)
 	.then(() => console.log('database connect'))
 	.catch((error) => console.log(`database error - ${error}`));
 
