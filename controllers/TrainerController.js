@@ -71,7 +71,31 @@ export const remove = async (req, res) => {
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({
-			message: 'Не удалось получить статистику по тренировкам.',
+			message: 'Не удалось удалить тренировку',
+		});
+	}
+};
+
+export const removeAll = async (req, res) => {
+	try {
+		const usersId = req.userId;
+		const doc = await TrainerModel.deleteMany({
+			user: usersId,
+		}).exec();
+
+		if (!doc) {
+			return res.status(500).json({
+				message: 'Тренировки не найдены',
+			});
+		}
+
+		res.json({
+			success: true,
+		});
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({
+			message: 'Не удалось удалить все тренировки',
 		});
 	}
 };

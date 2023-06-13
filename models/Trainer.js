@@ -19,7 +19,7 @@ const TrainerSchema = new mongoose.Schema(
 			required: true,
 		},
 		strictMode: {
-			type: String,
+			type: Boolean,
 			required: true,
 		},
 		language: {
@@ -33,7 +33,7 @@ const TrainerSchema = new mongoose.Schema(
 		},
 	},
 	{
-		timestamps: true,
+		timestamps: { updatedAt: false }
 	}
 );
 

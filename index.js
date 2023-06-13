@@ -1,11 +1,15 @@
-import cors from 'cors'
-import express from 'express'
-import mongoose from 'mongoose'
-import checkAuth from './utils/checkAuth.js'
-import { loginValidation, registerValidation, updateValidation } from './validation.js'
+import cors from 'cors';
+import express from 'express';
+import mongoose from 'mongoose';
+import checkAuth from './utils/checkAuth.js';
+import {
+	loginValidation,
+	registerValidation,
+	updateValidation,
+} from './validation.js';
 
-import * as TrainerController from './controllers/TrainerController.js'
-import * as UserController from './controllers/UserController.js'
+import * as TrainerController from './controllers/TrainerController.js';
+import * as UserController from './controllers/UserController.js';
 
 mongoose
 	.connect(
@@ -29,6 +33,8 @@ app.post('/trainers', checkAuth, TrainerController.create);
 app.get('/trainers', TrainerController.getAllTrainers);
 app.get('/trainers/account', checkAuth, TrainerController.getAllOneUser);
 app.delete('/trainers/:id', checkAuth, TrainerController.remove);
+app.delete('/trainers', checkAuth, TrainerController.removeAll);
+
 
 app.listen(4444, (error) => {
 	if (error) {
