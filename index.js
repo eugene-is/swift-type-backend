@@ -12,7 +12,7 @@ import * as TrainerController from './controllers/TrainerController.js';
 import * as UserController from './controllers/UserController.js';
 
 mongoose
-	.connect(process.env.MONGODB_URL || 'mongodb+srv://eugene-isaikin:rrfxxb2023@swifttype.gir6c4x.mongodb.net/swift-type?retryWrites=true&w=majority')
+	.connect(process.env.MONGODB_URL || 'mongodb://mongo:********@containers-us-west-79.railway.app:6897' || 'mongodb+srv://eugene-isaikin:rrfxxb2023@swifttype.gir6c4x.mongodb.net/swift-type?retryWrites=true&w=majority')
 	.then(() => console.log('database connect'))
 	.catch((error) => console.log(`database error - ${error}`));
 
