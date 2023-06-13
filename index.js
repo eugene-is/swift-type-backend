@@ -11,6 +11,10 @@ import {
 import * as TrainerController from './controllers/TrainerController.js';
 import * as UserController from './controllers/UserController.js';
 
+const ip = process.env.RAILWAY_STATIC_IP;
+console.log(ip);
+
+
 mongoose
 	.connect(process.env.MONGODB_URL || 'mongodb+srv://eugene-isaikin:rrfxxb2023@swifttype.gir6c4x.mongodb.net/swift-type?retryWrites=true&w=majority')
 	.then(() => console.log('database connect'))
