@@ -12,9 +12,7 @@ import * as TrainerController from './controllers/TrainerController.js';
 import * as UserController from './controllers/UserController.js';
 
 mongoose
-	.connect(
-		'mongodb+srv://eugene-isaikin:rrfxxb2023@swifttype.gir6c4x.mongodb.net/swift-type?retryWrites=true&w=majority'
-	)
+	.connect(process.env.MONGODB_URL || 'mongodb+srv://eugene-isaikin:rrfxxb2023@swifttype.gir6c4x.mongodb.net/swift-type?retryWrites=true&w=majority')
 	.then(() => console.log('database connect'))
 	.catch((error) => console.log(`database error - ${error}`));
 
@@ -36,7 +34,7 @@ app.delete('/trainers/:id', checkAuth, TrainerController.remove);
 app.delete('/trainers', checkAuth, TrainerController.removeAll);
 
 
-app.listen(4444, (error) => {
+app.listen(process.env.PORT || 4444, (error) => {
 	if (error) {
 		return console.log(`web serve error - ${error}`);
 	}
