@@ -36,7 +36,7 @@ app.delete('/trainers/:id', checkAuth, TrainerController.remove);
 app.delete('/trainers', checkAuth, TrainerController.removeAll);
 
 
-app.listen(4444, (error) => {
+app.listen(process.env.PORT || 4444, (error) => {
 	if (error) {
 		return console.log(`web serve error - ${error}`);
 	}
